@@ -1,0 +1,10 @@
+﻿{
+  "Name": "Factorio Mod idk",
+  "Author": "Aspectious, Linuxnoodle, Sushibirb",
+  "Version": "0.0.1",
+  "Description": "haha mod go brrr",
+  "UniqueID": "TFMG.FACTORYMOD",
+  "EntryDLL": "sv-factorio-mod.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}
