@@ -1,0 +1,10 @@
+﻿{
+  "testItem": {
+    "Name": "Test Item",
+    "DisplayName": "Test Item",
+    "Description": "A description LMFAO",
+    "Type": "Basic",
+    "Category": -15,
+    "Texture": "Item/testItem"
+  }
+}

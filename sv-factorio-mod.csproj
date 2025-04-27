@@ -2,17 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>sv_factorio_mod</RootNamespace>
+        <RootNamespace>FactoryMod</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="factorymod\" />
     </ItemGroup>
 
 </Project>
