@@ -1,1 +1,8 @@
 ﻿.idea/
+bin/
+obj/
+.vscode/
+*.suo
+*.user
+packages
+_ReSharper.*
