@@ -1,9 +1,10 @@
-﻿using FactoryMod.Item;
-using FactoryMod.Util;
+﻿using FactoryMod.Util;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Extensions;
+using StardewValley.GameData.Objects;
 using Object = StardewValley.Object;
 
 namespace FactoryMod
@@ -23,14 +24,26 @@ namespace FactoryMod
             this.AL = new AssetLoader(this, helper.ModContent.Load<Dictionary<String,String>>("assets/dictionary/PathMap.json"));
             
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
+            helper.GameContent.Load<Dictionary<String, ObjectData>>("Data/Objects");
             
-            StardewValley.Item testItem = new StardewValley.Object("testItem", 1);
+            
+            
+            StardewValley.Item testItem = new StardewValley.Object("FactoryMod.testItem", 1);
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
         private void OnAssetRequested(object sender, AssetRequestedEventArgs e)
         {
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/Objects"))
+            {
+                e.Edit(asset => DataAppender.AppendFile(helper, asset, "assets/Data/Objects.json"));
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
+            {
+                e.Edit(asset => DataAppender.AppendFile(helper, asset, "assets/Data/CraftingRecipes.json"));
+            }
             foreach (KeyValuePair<String, String> pair in AL.pathMap)
             {
+
                 if (e.NameWithoutLocale.IsEquivalentTo(pair.Key))
                 {
                     e.Edit(asset =>
