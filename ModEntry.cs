@@ -1,5 +1,6 @@
 ﻿using FactoryMod.Util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -23,9 +24,11 @@ namespace FactoryMod
             this.helper = helper;
             this.AL = new AssetLoader(this, helper.ModContent.Load<Dictionary<String,String>>("assets/dictionary/PathMap.json"));
             
+            //Hijack Content loading and inject mod assets
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
-            helper.GameContent.Load<Dictionary<String, ObjectData>>("Data/Objects");
-            
+
+            // Patch content into game
+            DataPatcher.doPatch(helper);
             
             
             StardewValley.Item testItem = new StardewValley.Object("FactoryMod.testItem", 1);
@@ -35,32 +38,19 @@ namespace FactoryMod
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Data/Objects"))
             {
-                e.Edit(asset => DataAppender.AppendFile(helper, asset, "assets/Data/Objects.json"));
+                e.Edit(asset => DataPatcher.PatchObjectData(helper, asset, "assets/Data/Objects.json"));
             }
             if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
             {
-                e.Edit(asset => DataAppender.AppendFile(helper, asset, "assets/Data/CraftingRecipes.json"));
+                e.Edit(asset => DataPatcher.PatchString(helper, asset, "assets/Data/CraftingRecipes.json"));
             }
-            foreach (KeyValuePair<String, String> pair in AL.pathMap)
+
+            if (e.NameWithoutLocale.IsEquivalentTo("Item/testItem"))
             {
-
-                if (e.NameWithoutLocale.IsEquivalentTo(pair.Key))
+                e.LoadFrom(() =>
                 {
-                    e.Edit(asset =>
-                    {
-                        if (pair.Value.EndsWith(".png"))
-                        {
-                            var editor = asset.AsImage();
-                            IRawTextureData sourceImage = this.Helper.ModContent.Load<IRawTextureData>(pair.Value);
-                            editor.PatchImage(sourceImage, targetArea: new Rectangle(300, 100, 200, 200));
-                        } else if (pair.Value.EndsWith(".json"))
-                        {
-                            var editor = asset.AsDictionary<string, string>();
-                            editor.Data[pair.Key] = pair.Value;
-                        }
-
-                    });
-                }
+                    return this.Helper.ModContent.Load<Texture2D>("assets/Item/testItem.png");
+                }, AssetLoadPriority.Medium);
             }
 
         }

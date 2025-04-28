@@ -4,22 +4,19 @@
     "DisplayName": "Test Item",
     "Description": "A description LMFAO",
     "Type": "Basic",
-    "Category": -15,
+    "Category": -8,
     "Texture": "Item/testItem",
     "SpriteIndex": 0,
-    "ColorOverlayFromNextIndex": false,
-    "Edibility": -300,
-    "IsDrink": false,
     "Buffs": null,
-    "GeodeDropsDefaultItems": false,
-    "GeodeDrops": null,
-    "ArtifactSpotChances": null,
-    "CanBeGivenAsGift": true,
-    "CanBeTrashed": true,
-    "ExcludeFromFishingCollection": false,
-    "ExcludeFromShippingCollection": false,
-    "ExcludeFromRandomSale": false,
-    "ContextTags": null,
-    "CustomFields": null
+  },
+  "FactoryMod.solarGenerator": {
+    "Name": "Solar Generator",
+    "DisplayName": "Solar Generator",
+    "Description": "A description LMFAO",
+    "Type": "Basic",
+    "Category": -8,
+    "Texture": "Item/testItem",
+    "SpriteIndex": 0,
+    "Buffs": null
   }
 }
