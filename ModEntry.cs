@@ -2,12 +2,14 @@
 using FactoryMod.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.GameData.BigCraftables;
 using StardewValley.GameData.Objects;
+using xTile.Dimensions;
 using Object = StardewValley.Object;
 
 namespace FactoryMod
@@ -29,11 +31,74 @@ namespace FactoryMod
             //Hijack Content loading and inject mod assets
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
 
+            // Hijact Placement and Destruction of objects
+            helper.Events.World.ObjectListChanged += this.OnObjectListChanged;
+            helper.Events.Input.ButtonReleased += this.OnButtonReleased;
+            //helper.Events.Input.CursorMoved += this.OnCursorMoved;
             // Patch content into game
             DataPatcher.doPatch(helper);
             
-            helper.Events.World.ObjectListChanged += this.OnObjectListChanged;
         }
+
+        private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
+        {
+            Vector2 TilePosition = e.Cursor.Tile;
+            if (Game1.currentLocation == null) return;
+            if (Game1.currentLocation.Objects == null) return;
+            if (Game1.currentLocation.Objects.Length > 0)
+            {
+                if (Game1.currentLocation.Objects.ContainsKey(TilePosition))
+                {
+                    Object obj = Game1.currentLocation.Objects[TilePosition];
+                    if (obj.ItemId == "FactoryMod.Inserter")
+                    {
+                        Console.WriteLine("Inserter Clicked On!");
+                    }
+                }
+            }
+        }
+
+        /*
+         
+         TODO: Find a more efficient way to do this
+        private bool cursorInGrabItem = false;
+        private void OnCursorMoved(object sender, CursorMovedEventArgs e)
+        {
+            Vector2 placewheremouseis = e.NewPosition.Tile;
+            Vector2 placewheremousewas = e.OldPosition.Tile;
+            
+            if (Game1.currentLocation == null) return;
+            if (Game1.currentLocation.Objects == null) return;
+            if (Game1.currentLocation.Objects.Length > 0)
+            {
+                if (Game1.currentLocation.Objects.ContainsKey(placewheremouseis))
+                {
+                    Object obj = Game1.currentLocation.Objects[placewheremouseis];
+                    if (obj.ItemId == "FactoryMod.Inserter")
+                    {
+                        if (cursorInGrabItem) return;
+                        else
+                        {
+                            cursorInGrabItem = true;
+                            Game1.mouseCursor = Game1.cursor_grab;
+                        }
+                    }
+                } else if (Game1.currentLocation.Objects.ContainsKey(placewheremousewas))
+                {
+                    Object obj = Game1.currentLocation.Objects[placewheremousewas];
+                    if (obj.ItemId == "FactoryMod.Inserter")
+                    {
+                        if (!cursorInGrabItem) return;
+                        else {
+                            cursorInGrabItem = false;
+                            Game1.mouseCursor = Game1.cursor_default;
+                        }
+                    }
+                }
+                else return;
+            }
+        }
+        */
 
         /// <summary>
         /// This lets us know when a tile/object is placed down in the world, and we can filter
