@@ -19,5 +19,27 @@
     "Texture": "Item/ironPlate",
     "SpriteIndex": 0,
     "Buffs": null
+  },
+  "FactoryMod.copperWire": {
+    "Name": "Copper Wire",
+    "DisplayName": "Copper Wire",
+    "Description": "A thin wire made of copper.",
+    "Price": 30,
+    "Type": "Basic",
+    "Category": -15,
+    "Texture": "Item/copperWire",
+    "SpriteIndex": 0,
+    "Buffs": null
+  },
+  "FactoryMod.circuitBoard": {
+    "Name": "Circuit Board",
+    "DisplayName": "Circuit Board",
+    "Description": "A crude circuit board made of copper wires and an iron plate.",
+    "Price": 110,
+    "Type": "Basic",
+    "Category": -15,
+    "Texture": "Item/circuitBoard",
+    "SpriteIndex": 0,
+    "Buffs": null
   }
 }

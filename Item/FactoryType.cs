@@ -4,7 +4,7 @@ using StardewValley.ItemTypeDefinitions;
 
 namespace FactoryMod.Item;
 
-public class InserterType: IItemDataDefinition
+public class FactoryType: IItemDataDefinition
 {
     public IEnumerable<string> GetAllIds()
     {

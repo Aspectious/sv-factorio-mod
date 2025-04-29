@@ -1,4 +1,5 @@
-﻿using FactoryMod.Util;
+﻿using System.Diagnostics;
+using FactoryMod.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
@@ -30,6 +31,23 @@ namespace FactoryMod
 
             // Patch content into game
             DataPatcher.doPatch(helper);
+            
+            helper.Events.World.ObjectListChanged += this.OnObjectListChanged;
+        }
+
+        /// <summary>
+        /// This lets us know when a tile/object is placed down in the world, and we can filter
+        /// the results from here for just our mod.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnObjectListChanged(object sender, ObjectListChangedEventArgs e)
+        {
+            Console.WriteLine("Object list changed");
+            foreach (KeyValuePair<Vector2,Object> obj in e.Added)
+            {
+                Console.WriteLine("Added object: " + obj.Value.Name);
+            }
         }
         
         
