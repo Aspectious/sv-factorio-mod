@@ -1,0 +1,26 @@
+{
+  "FactoryMod.solarGenerator": {
+    "Name": "Solar Generator",
+    "DisplayName": "Solar Generator",
+    "Description": "Generates Power from the sun",
+    "CanBePlacedIndoors": false,
+    "CanBePlacedOutdoors": true,
+    "Fragility": 0,
+    "Category": -8,
+    "Texture": "Item/solarGenerator",
+    "SpriteIndex": 0,
+    "Buffs": null
+  },
+  "FactoryMod.gantryFrame": {
+    "Name": "Gantry Frame",
+    "DisplayName": "Solar Generator",
+    "Description": "Generates Power from the sun",
+    "CanBePlacedIndoors": false,
+    "CanBePlacedOutdoors": true,
+    "Fragility": 0,
+    "Category": -8,
+    "Texture": "Item/solarGenerator",
+    "SpriteIndex": 0,
+    "Buffs": null
+  }
+}

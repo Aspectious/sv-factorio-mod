@@ -5,6 +5,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Extensions;
+using StardewValley.GameData.BigCraftables;
 using StardewValley.GameData.Objects;
 using Object = StardewValley.Object;
 
@@ -22,50 +23,46 @@ namespace FactoryMod
         public override void Entry(IModHelper helper)
         {
             this.helper = helper;
-            this.AL = new AssetLoader(this, helper.ModContent.Load<Dictionary<String,String>>("assets/dictionary/PathMap.json"));
+            this.AL = new AssetLoader(this, helper.ModContent.Load<Dictionary<String,String>>("assets/dictionary/TextureMap.json"));
             
             //Hijack Content loading and inject mod assets
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
 
             // Patch content into game
             DataPatcher.doPatch(helper);
-            
-            
-            StardewValley.Item testItem = new StardewValley.Object("FactoryMod.testItem", 1);
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
+        
+        
+        /// <summary>
+        /// Injects the game's assets with our mod's changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAssetRequested(object sender, AssetRequestedEventArgs e)
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Data/Objects"))
             {
-                e.Edit(asset => DataPatcher.PatchObjectData(helper, asset, "assets/Data/Objects.json"));
+                e.Edit(asset => DataPatcher.Patch<ObjectData>(helper, asset, "assets/Data/Objects.json"));
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/BigCraftables"))
+            {
+                e.Edit(asset => DataPatcher.Patch<BigCraftableData>(helper, asset, "assets/Data/BigCraftables.json"));
             }
             if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
             {
-                e.Edit(asset => DataPatcher.PatchString(helper, asset, "assets/Data/CraftingRecipes.json"));
+                e.Edit(asset => DataPatcher.Patch<String>(helper, asset, "assets/Data/CraftingRecipes.json"));
             }
-
-            if (e.NameWithoutLocale.IsEquivalentTo("Item/testItem"))
+            
+            foreach (KeyValuePair<String, String> entry in this.AL.AssetMap)
             {
-                e.LoadFrom(() =>
+                if (e.NameWithoutLocale.IsEquivalentTo(entry.Key))
                 {
-                    return this.Helper.ModContent.Load<Texture2D>("assets/Item/testItem.png");
-                }, AssetLoadPriority.Medium);
+                    e.LoadFrom(() =>
+                    {
+                        return this.Helper.ModContent.Load<Texture2D>(entry.Value);
+                    }, AssetLoadPriority.Medium);
+                }
             }
-
-        }
-        
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event data.</param>
-        private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
-        {
-            // ignore if player hasn't loaded a save yet
-            if (!Context.IsWorldReady)
-                return;
-
-            // print button presses to the console window
-            this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
         }
     }
 }

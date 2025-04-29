@@ -6,12 +6,12 @@ namespace FactoryMod.Util;
 
 public class AssetLoader
 {
-    public Dictionary<String, String> pathMap;
+    public Dictionary<String, String> AssetMap;
     
     public AssetLoader(Mod mod, Dictionary<String, String> pathMap)
     {
-        this.pathMap = pathMap;
-        foreach (KeyValuePair<String, String> pair in this.pathMap)
+        this.AssetMap = pathMap;
+        foreach (KeyValuePair<String, String> pair in this.AssetMap)
         {
             mod.Monitor.Log(pair.Key + ":" + pair.Value);
         }

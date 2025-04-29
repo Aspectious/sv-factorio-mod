@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using StardewValley.GameData.BigCraftables;
 using StardewValley.GameData.Objects;
 
 namespace FactoryMod.Util;
@@ -9,21 +10,13 @@ public class DataPatcher
     {
         helper.GameContent.Load<Dictionary<String, ObjectData>>("Data/Objects");
         helper.GameContent.Load<Dictionary<String, String>>("Data/CraftingRecipes");
+        helper.GameContent.Load<Dictionary<String, BigCraftableData>>("Data/BigCraftables");
     }
-    public static void PatchObjectData(IModHelper modhelper, IAssetData asset, String ModFilePath)
+        public static void Patch<T>(IModHelper modhelper, IAssetData asset, String ModFilePath)
     {
-        var data = asset.AsDictionary<string, ObjectData>().Data;
-        var modData = modhelper.ModContent.Load<Dictionary<String, ObjectData>>("assets/Data/Objects.json");
-        foreach (KeyValuePair<String, ObjectData> addeditem in modData)
-        {
-            data.Add(addeditem.Key, addeditem.Value);
-        }
-    }
-    public static void PatchString(IModHelper modhelper, IAssetData asset, String ModFilePath)
-    {
-        var data = asset.AsDictionary<String, String>().Data;
-        var modData = modhelper.ModContent.Load<Dictionary<String, String>>("assets/Data/CraftingRecipes.json");
-        foreach (KeyValuePair<String, string> addeditem in modData)
+        var data = asset.AsDictionary<String, T>().Data;
+        var modData = modhelper.ModContent.Load<Dictionary<String, T>>(ModFilePath);
+        foreach (KeyValuePair<String, T> addeditem in modData)
         {
             data.Add(addeditem.Key, addeditem.Value);
         }
