@@ -22,17 +22,5 @@
     "Texture": "Item/solarGenerator",
     "SpriteIndex": 0,
     "Buffs": null
-  },
-  "FactoryMod.Inserter": {
-    "Name": "Inserter",
-    "DisplayName": "Inserter",
-    "Description": "Grabs items from one place and puts them in another",
-    "CanBePlacedIndoors": true,
-    "CanBePlacedOutdoors": true,
-    "Fragility": 0,
-    "Category": -8,
-    "Texture": "Item/Inserter",
-    "SpriteIndex": 0,
-    "Buffs": null
   }
 }
