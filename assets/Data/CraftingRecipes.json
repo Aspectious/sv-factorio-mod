@@ -2,5 +2,6 @@
   "testItem": "388 1/Field/FactoryMod.testItem/false/default",
   "ironPlate": "335 2/Field/FactoryMod.ironPlate 4/false/default",
   "copperWire": "334 1/Field/FactoryMod.copperWire 2/false/default",
-  "circuitBoard": "FactoryMod.ironPlate 1 FactoryMod.copperWire/Field/FactoryMod.circuitBoard 1/false/default"
+  "circuitBoard": "FactoryMod.ironPlate 1 FactoryMod.copperWire/Field/FactoryMod.circuitBoard 1/false/default",
+  "Inserter": "FactoryMod.ironPlate 1 FactoryMod.circuitBoard/Field/FactoryMod.Inserter 1/false/default"
 }
