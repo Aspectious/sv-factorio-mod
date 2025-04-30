@@ -3,5 +3,7 @@
   "Item/solarGenerator": "assets/Item/solarGenerator.png",
   "Item/ironPlate": "assets/Item/ironPlate.png",
   "Item/copperWire": "assets/Item/copperWire.png",
-  "Item/circuitBoard": "assets/Item/circuitBoard.png"
+  "Item/circuitBoard": "assets/Item/circuitBoard.png",
+  "Item/Inserter": "assets/Item/Inserter-Item.png",
+  "Big/Inserter": "assets/Big/Inserter.png"
 }
