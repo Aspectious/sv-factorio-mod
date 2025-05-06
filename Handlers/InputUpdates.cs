@@ -29,6 +29,7 @@ public class InputUpdates
     /// <param name="e"></param>
     private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
     {
+        /*
         if (e.Button != SButton.MouseRight) return;
         Vector2 TilePosition = e.Cursor.Tile;
         if (Game1.currentLocation == null) return;
@@ -45,6 +46,7 @@ public class InputUpdates
                 }
             }
         }
+        */
     }
     
     

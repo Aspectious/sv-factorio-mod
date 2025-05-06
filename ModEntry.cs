@@ -32,8 +32,10 @@ namespace FactoryMod
             this.AL = new AssetLoader(this, helper.ModContent.Load<Dictionary<String,String>>("assets/dictionary/TextureMap.json"));
             this.U_WORLD = new WorldUpdates(helper);
             this.U_INPUT = new InputUpdates(helper);
+            new InventoryUpdates(helper);
             //Hijack Content loading and inject mod assets
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
+            
 
             //helper.Events.Input.CursorMoved += this.OnCursorMoved;
             // Patch content into game

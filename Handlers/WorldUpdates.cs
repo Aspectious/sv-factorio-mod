@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FactoryMod.Objects;
+using Microsoft.Xna.Framework;
 using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -29,6 +30,7 @@ public class WorldUpdates
 
     }
 
+    private int prevInserterKey;
     /// <summary>
     /// This lets us know when a tile/object is placed down in the world, and we can filter
     /// the results from here for just our mod.
@@ -38,11 +40,27 @@ public class WorldUpdates
     private void OnObjectListChanged(object sender, ObjectListChangedEventArgs e)
     {
         Console.WriteLine("Object list changed");
-
-        foreach (KeyValuePair<Vector2, Object> obj in e.Added) 
+        Console.WriteLine("Added: " + e.Added.Count());
+        Console.WriteLine("Sender: " + sender);
+        if (e.Added.Count() < 1) return;
+        else
         {
-            if (obj.Value.itemId == new NetString("FactoryMod.Inserter"))
+            foreach (KeyValuePair<Vector2, Object> obj in e.Added)
             {
+                if (obj.Value.itemId == new NetString("FactoryMod.Inserter"))
+                {
+                    Console.WriteLine(obj.GetType());
+                    Console.WriteLine(e.Location.objects[obj.Key].GetType());
+                    if (prevInserterKey == 0) {
+                        
+                        e.Location.objects[obj.Key] = new Inserter(obj.Key);
+                        prevInserterKey = 1;
+                    }
+                    else
+                    {
+                        prevInserterKey = 0;
+                    }
+                }
             }
         }
         

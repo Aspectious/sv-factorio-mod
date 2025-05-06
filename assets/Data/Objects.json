@@ -51,8 +51,9 @@
     "CanBePlacedIndoors": true,
     "CanBePlacedOutdoors": true,
     "Fragility": 0,
-    "Category": -8,
+    "Category": -9,
     "Texture": "Item/Inserter",
+    "rotations": 4,
     "SpriteIndex": 0,
     "Buffs": null
   }
